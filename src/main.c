@@ -15,14 +15,19 @@ int main(){
     // Printing the state of the game
     bool done;
     done = false;
-    int open;
+    int open = 0;
+    for (int i = 0; i < 5; i++){
+        for (int j = 0; j < 5; j++){
+            if(board[i][j] == ' '){
+                open++;
+            }
+        }
+    }
+    printf("%d", open);
     while(!done){
         for (int i = 0; i < 5; i++){
             for (int j = 0; j < 5; j++)
                 {
-                    if(board[i][j] == ' '){
-                        open++;
-                    }
                     printf("%c", board[i][j]);
                     printf(" ");
                 }
@@ -34,8 +39,8 @@ int main(){
         
         while(true){
             printf("Choose a piece (x or o) or q to quit: ");
-            scanf("%c", &val);
-            printf("%c\n", val);
+            scanf(" %c", &val);
+            // printf("%c\n", val);
 
             if(val == 'q'){
                 done = true;
@@ -43,19 +48,21 @@ int main(){
             }
 
             if(val != 'x' && val != 'o'){
-                printf("Invalid choice.");
+                printf("Invalid choice. ");
             }else{
                 break;
             }
         }
         
+        if(done) break;
+
         // ROW
         while(true){
             printf("Choose a row (0-4): ");
-            scanf("%d", &row);
+            scanf(" %d", &row);
 
             if(!(row >=0 && row < 5)){
-                printf("Invalid choice.");
+                printf("Invalid choice. ");
             }else{
                 break;
             }
@@ -64,9 +71,9 @@ int main(){
         // COLUMN
         while(true){
             printf("Choose a column (0-4): ");
-            scanf("%d", &col);
+            scanf(" %d", &col);
             if(!(col >=0 && col < 5)){
-                printf("Invalid choice.");
+                printf("Invalid choice. ");
             }else{
                 break;
             }
@@ -78,8 +85,8 @@ int main(){
         }else{
             board[row][col] = val;
             open--;
-            if(open == 0) done = true;
-            if(done == true){
+            if(open == 0){
+                done = true;
                 printf("Congratulations, you have filled the board!\n");
                 for (int i = 0; i < 5; i++)
                     {
