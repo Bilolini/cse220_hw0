@@ -82,7 +82,10 @@ int main(){
 
         if(&board[row][col] == "x" || &board[row][col] == "0"){
             printf("Invalid choice. That space is already occupied.\n");
-        }else{
+        }
+        else if(four_inrow(val, row, col)){
+            printf("Invalid choice. You have created 4-in-a-row.\n");
+        }   else{
             board[row][col] = val;
             open--;
             if(open == 0){
@@ -100,4 +103,37 @@ int main(){
             }
         }
     }
+}
+
+
+bool four_inrow(char val, int row, int col){
+    int ways[4][2] = {{0, 1}, {1, 0}, {1, 1}, {1, -1}};
+    for(int j = 0; j< 4; j++){
+        int c = 1;
+        // for positive
+        for(int i = 1; i < 4; i++){
+            int x = row + ways[j][0] * i;
+            int y = col + ways[j][1] * i;
+
+            if(x >= 0 && x < rows && 
+            y >= 0 && y < cols && board[row][col] == val){
+                c++;
+            }else{ break; }
+        }
+
+        if(c >= 4) return true;
+        // for negative
+        for(int i = 1; i < 4; i++){
+            int x = row - ways[j][0] * i;
+            int y = col - ways[j][1] * i;
+
+            if(x >= 0 && x < rows && 
+            y >= 0 && y < cols && board[row][col] == val){
+                c++;
+            }else{ break; }
+        }
+
+        if(c >= 4) return true;
+    }
+    return false;
 }
