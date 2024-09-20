@@ -114,7 +114,6 @@ int main(){
                         if(x >= 0 && x < rows && 
                         y >= 0 && y < cols && board[row][col] == val){
                             c++;
-                            track = c;
                         }else{ break; }
                     }
                     if(c >= 4){
