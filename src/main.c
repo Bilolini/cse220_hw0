@@ -100,27 +100,24 @@ int main(){
                         board[row][col] == val
                     ){
                         c++;
-                    }else{ break; }
+                    }else break; 
+                }
+                    
+                for(int i = 1; i < 4; i++){
+                    int x = row - ways[j][0] * i;
+                    int y = col - ways[j][1] * i;
+
+                    if(x >= 0 && x < rows && 
+                    y >= 0 && y < cols && board[row][col] == val){
+                        c++;
+                    }
+                    else break;
                 }
                 if(c >= 4){
                     printf("Wrong here - four in a row");
                     combo = true;
-                }else{
-                    // for negative
-                    for(int i = 1; i < 4; i++){
-                        int x = row - ways[j][0] * i;
-                        int y = col - ways[j][1] * i;
-
-                        if(x >= 0 && x < rows && 
-                        y >= 0 && y < cols && board[row][col] == val){
-                            c++;
-                        }else{ break; }
-                    }
-                    if(c >= 4){
-                        printf("Wrong here - four in a row");
-                        combo = true;
-                    }
-                };
+                    break;
+                }
             }
             
             if(!combo){
