@@ -80,46 +80,65 @@ int main(){
         }
         
 
-        if(&board[row][col] == "x" || &board[row][col] == "0"){
+        if(&board[row][col] == "x" || &board[row][col] == "o"){
             printf("Invalid choice. That space is already occupied.\n");
         }
        else{
-            int ways[4][2] = {{0, 1}, {1, 0}, {1, 1}, {1, -1}};
-            int rows = 5;
-            int cols = 5;
             bool combo = false;
-            for(int j = 0; j< 4; j++){
-                int c = 1;
-                // for positive
-                for(int i = 1; i < 4; i++){
-                    int x = row + ways[j][0] * i;
-                    int y = col + ways[j][1] * i;
+            // Check horizontal
+            int count = 0;
+            for (int i = col - 1; i >= 0 && board[row][i] == val; i--) {
+                count++;
+            }
+            for (int i = col + 1; i < 5 && board[row][i] == val; i++) {
+                count++;
+            }
+            if (count >= 3) {
+                combo = true;
+            }
 
-                    if(x >= 0 && x < rows && 
-                        y >= 0 && y < cols && 
-                        board[row][col] == val
-                    ){
-                        c++;
-                    }else break; 
+            // Check vertical
+            if(!combo){
+                count = 0;
+                for (int i = row - 1; i >= 0 && board[i][col] == val; i--) {
+                    count++;
                 }
-                    
-                for(int i = 1; i < 4; i++){
-                    int x = row - ways[j][0] * i;
-                    int y = col - ways[j][1] * i;
-
-                    if(x >= 0 && x < rows && 
-                    y >= 0 && y < cols && board[row][col] == val){
-                        c++;
-                    }
-                    else break;
+                for (int i = row + 1; i < 5 && board[i][col] == val; i++) {
+                    count++;
                 }
-                if(c >= 4){
-                    printf("Wrong here - four in a row");
+                if (count >= 3) {
                     combo = true;
-                    break;
+                }
+            }
+        
+            if(!combo){
+                // Check diagonal (top-left to bottom-right)
+                count = 0;
+                for (int i = row - 1, j = col - 1; i >= 0 && j >= 0 && board[i][j] == val; i--, j--) {
+                    count++;
+                }
+                for (int i = row + 1, j = col + 1; i < 5 && j < 5 && board[i][j] == val; i++, j++) {
+                    count++;
+                }
+                if (count >= 3) {
+                    combo = true;
                 }
             }
             
+            if(!combo){
+                // Check diagonal (top-right to bottom-left)
+                count = 0;
+                for (int i = row - 1, j = col + 1; i >= 0 && j < 5 && board[i][j] == val; i--, j++) {
+                    count++;
+                }
+                for (int i = row + 1, j = col - 1; i < 5 && j >= 0 && board[i][j] == val; i++, j--) {
+                    count++;
+                }
+                if (count >= 3) {
+                    combo = true;
+                }
+            }
+
             if(!combo){
                 board[row][col] = val;
                 open--;
@@ -139,8 +158,6 @@ int main(){
             }else{
                 printf("Invalid choice. You have created 4-in-a-row.\n");
             }
-
-            
         }
     }
 }
