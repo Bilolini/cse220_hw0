@@ -4,20 +4,19 @@
 int main(){
     // printf("Hello world\n");
 
-    char board[5][5] = {
-                {'x', 'x', 'x', ' ', 'o'},
-                {'o', 'x', 'x', 'o', 'o'},
-                {'o', 'x', ' ', 'x', 'x'},
-                {'o', ' ', 'x', 'x', ' '},
-                {'x', 'o', 'x', 'x', 'o'},
+    char board[4][4] = {
+                {'x', 'o', 'x', 'o'},
+                {'x', 'x', 'x', 'o'},
+                {'o', 'o', 'o', '-'},
+                {'o', 'o', 'o', 'x'},
             };
     
     // Printing the state of the game
     bool done;
     done = false;
     int open = 0;
-    for (int i = 0; i < 5; i++){
-        for (int j = 0; j < 5; j++){
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
             if(board[i][j] == ' '){
                 open++;
             }
@@ -25,8 +24,8 @@ int main(){
     }
     // printf("%d", open);
     while(!done){
-        for (int i = 0; i < 5; i++){
-            for (int j = 0; j < 5; j++)
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++)
                 {
                     printf("%c", board[i][j]);
                     printf(" ");
@@ -61,7 +60,7 @@ int main(){
             printf("Choose a row (0-4): ");
             scanf(" %d", &row);
 
-            if(!(row >=0 && row < 5)){
+            if(!(row >=0 && row < 4)){
                 printf("Invalid choice. ");
             }else{
                 break;
@@ -72,7 +71,7 @@ int main(){
         while(true){
             printf("Choose a column (0-4): ");
             scanf(" %d", &col);
-            if(!(col >=0 && col < 5)){
+            if(!(col >=0 && col < 4)){
                 printf("Invalid choice. ");
             }else{
                 break;
@@ -90,7 +89,7 @@ int main(){
             for (int i = col - 1; i >= 0 && board[row][i] == val; i--) {
                 count++;
             }
-            for (int i = col + 1; i < 5 && board[row][i] == val; i++) {
+            for (int i = col + 1; i < 4 && board[row][i] == val; i++) {
                 count++;
             }
             if (count >= 3) {
@@ -103,7 +102,7 @@ int main(){
                 for (int i = row - 1; i >= 0 && board[i][col] == val; i--) {
                     count++;
                 }
-                for (int i = row + 1; i < 5 && board[i][col] == val; i++) {
+                for (int i = row + 1; i < 4 && board[i][col] == val; i++) {
                     count++;
                 }
                 if (count >= 3) {
@@ -117,7 +116,7 @@ int main(){
                 for (int i = row - 1, j = col - 1; i >= 0 && j >= 0 && board[i][j] == val; i--, j--) {
                     count++;
                 }
-                for (int i = row + 1, j = col + 1; i < 5 && j < 5 && board[i][j] == val; i++, j++) {
+                for (int i = row + 1, j = col + 1; i < 4 && j < 4 && board[i][j] == val; i++, j++) {
                     count++;
                 }
                 if (count >= 3) {
@@ -128,10 +127,10 @@ int main(){
             if(!combo){
                 // Check diagonal (top-right to bottom-left)
                 count = 0;
-                for (int i = row - 1, j = col + 1; i >= 0 && j < 5 && board[i][j] == val; i--, j++) {
+                for (int i = row - 1, j = col + 1; i >= 0 && j < 4 && board[i][j] == val; i--, j++) {
                     count++;
                 }
-                for (int i = row + 1, j = col - 1; i < 5 && j >= 0 && board[i][j] == val; i++, j--) {
+                for (int i = row + 1, j = col - 1; i < 4 && j >= 0 && board[i][j] == val; i++, j--) {
                     count++;
                 }
                 if (count >= 3) {
@@ -145,9 +144,9 @@ int main(){
                 if(open == 0){
                     done = true;
                     printf("Congratulations, you have filled the board!\n");
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 4; i++)
                         {
-                            for (int j = 0; j < 5; j++)
+                            for (int j = 0; j < 4; j++)
                             {
                                 printf("%c", board[i][j]);
                                 printf(" ");
